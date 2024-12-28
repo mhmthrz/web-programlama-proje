@@ -1,0 +1,124 @@
+﻿<body class="bg-dark text-light">
+    <div class="container mt-5">
+        <h2 class="text-center mb-4 text-warning">Saç Deneme Aracı</h2>
+
+        <form id="uploadForm" enctype="multipart/form-data" class="card shadow p-4 bg-dark text-light rounded">
+            <div class="mb-3">
+                <label for="hairType" class="form-label text-light">Saç Modeli:</label>
+                <select id="hairType" name="hairType" class="form-select bg-dark text-light" required>
+                    <option value="BuzzCut">Buzz Cut</option>
+                    <option value="UnderCut">Under Cut</option>
+                    <option value="Pompadour">Pompadour</option>
+                    <option value="SlickBack">Slick Back</option>
+                    <option value="CurlyShag">Curly Shag</option>
+                    <option value="WavyShag">Wavy Shag</option>
+                    <option value="FauxHawk">Faux Hawk</option>
+                    <option value="Spiky">Spiky</option>
+                    <option value="CombOver">Comb Over</option>
+                    <option value="HighTightFade">High and Tight Fade</option>
+                    <option value="ManBun">Man Bun</option>
+                    <option value="Afro">Afro</option>
+                    <option value="LowFade">Low Fade</option>
+                    <option value="UndercutLongHair">Undercut With Long Hair</option>
+                    <option value="TwoBlockHaircut">Two Block Haircut</option>
+                    <option value="TexturedFringe">Textured Fringe</option>
+                    <option value="BluntBowlCut">Blunt Bowl Cut</option>
+                    <option value="LongWavyCurtainBangs">Long Wavy Curtain Bangs</option>
+                    <option value="MessyTousled">Messy Tousled</option>
+                    <option value="MediumLengthWavy">Medium Length Wavy</option>
+                    <option value="CornrowBraids">Cornrow Braids</option>
+                    <option value="LongHairTiedUp">Long Hair Tied Up</option>
+                    <option value="MiddleParted">Middle Parted</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="photo" class="form-label text-light">Fotoğraf Yükle:</label>
+                <input type="file" id="photo" name="photo" class="form-control bg-dark text-light" accept="image/*" required />
+            </div>
+
+            <button type="button" id="uploadButton" class="btn btn-warning w-100">Fotoğrafı Yükle ve İşle</button>
+        </form>
+
+        <div id="result" class="mt-4 text-center">
+            <!-- API sonucunu burada göstereceğiz -->
+        </div>
+    </div>
+
+
+
+
+    <script>
+        document.getElementById("uploadButton").addEventListener("click", async () => {
+            const photoInput = document.getElementById("photo");
+            const hairType = document.getElementById("hairType").value;
+
+            // Dosya kontrolü
+            if (!photoInput.files || !photoInput.files[0]) {
+                alert("Lütfen bir fotoğraf seçin.");
+                return;
+            }
+
+            const allowedFormats = ["image/jpeg", "image/png"];
+            const file = photoInput.files[0];
+
+            if (!allowedFormats.includes(file.type)) {
+                alert("Yalnızca JPEG veya PNG formatında bir dosya yükleyin.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image_target", file); // Fotoğraf dosyasını ekle
+            formData.append("hair_type", hairType); // Saç tipi
+            formData.append("task_type", "async"); // Görev türü
+
+            console.log("FormData içeriği:");
+            formData.forEach((value, key) => {
+                console.log(`${key}:`, value);
+            });
+
+            try {
+                const response = await fetch(
+                    "https://hairstyle-changer-pro.p.rapidapi.com/facebody/editing/hairstyle-pro",
+                    {
+                        method: "POST",
+                        headers: {
+                            "x-rapidapi-key": "abda27a15fmsh0d751a10d12547ap13cc42jsna78be093c03f",
+                            "x-rapidapi-host": "hairstyle-changer-pro.p.rapidapi.com",
+
+                        },
+                        body: formData,
+                    }
+                );
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error(`API Hatası: ${errorText}`);
+                    alert(`API Hatası: ${response.status} - ${errorText}`);
+                    return;
+                }
+
+                const jsonResponse = await response.json();
+                console.log("API Yanıtı:", jsonResponse);
+
+                if (jsonResponse.data && jsonResponse.data.image) {
+                    const base64Image = jsonResponse.data.image;
+
+                    document.getElementById("result").innerHTML = `
+                            <h3>Sonuç:</h3>
+                            <img src="data:image/jpeg;base64,${base64Image}" alt="Sonuç" style="max-width: 100%;" />
+                        `;
+                } else {
+                    alert("Yanıt içinde görüntü bulunamadı.");
+                }
+            } catch (error) {
+                console.error("Hata:", error);
+                alert("Fotoğraf işlenirken bir hata oluştu.");
+            }
+        });
+    </script>
+
+
+
+</body>
+</html> 

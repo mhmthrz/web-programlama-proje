@@ -1,0 +1,55 @@
+﻿@model webodev.Models.Calisan
+
+<h2>Yeni Çalışan Ekle</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+ 
+
+<form method="post" asp-action="Create">
+    <div class="form-group">
+        <label for="Ad">Ad</label>
+        <input id="Ad" name="Ad" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="SalonId">Salon</label>
+        <select id="SalonId" name="SalonId" class="form-control" required>
+            <option value="">Salon Seçiniz</option>
+            @foreach (var salon in ViewBag.Salonlar)
+            {
+                <option value="@salon.Id">@salon.Ad</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="IslemId">Uzmanlık (Hizmet)</label>
+        <select id="IslemId" name="IslemId" class="form-control" required>
+            <option value="">Hizmet Seçiniz</option>
+            @foreach (var islem in ViewBag.Islemler)
+            {
+                <option value="@islem.IslemId">@islem.Ad</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="CalismaBaslangicSaati">Çalışma Başlangıç Saati</label>
+        <input type="time" id="CalismaBaslangicSaati" name="CalismaBaslangicSaati" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="CalismaBitisSaati">Çalışma Bitiş Saati</label>
+        <input type="time" id="CalismaBitisSaati" name="CalismaBitisSaati" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>

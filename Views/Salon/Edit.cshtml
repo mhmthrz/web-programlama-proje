@@ -1,0 +1,34 @@
+@model webodev.Models.Salon
+
+<h2>Salon Düzenle</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Ad"></label>
+        <input asp-for="Ad" class="form-control" />
+        <span asp-validation-for="Ad" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Telefon"></label>
+        <input asp-for="Telefon" class="form-control" />
+        <span asp-validation-for="Telefon" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Adres"></label>
+        <input asp-for="Adres" class="form-control" />
+        <span asp-validation-for="Adres" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AcilisSaati"></label>
+        <input asp-for="AcilisSaati" class="form-control" type="time" />
+        <span asp-validation-for="AcilisSaati" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="KapanisSaati"></label>
+        <input asp-for="KapanisSaati" class="form-control" type="time" />
+        <span asp-validation-for="KapanisSaati" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+</form>

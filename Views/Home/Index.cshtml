@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaliteli Hizmet ve Tarzlar</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #121212;
+            color: #E0E0E0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .carousel img {
+            height: 500px;
+            object-fit: cover;
+        }
+
+        header {
+            background-color: #1E1E1E;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: #BB86FC;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #E0E0E0;
+            font-size: 1.2rem;
+        }
+
+        .section {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .section h2 {
+            color: #BB86FC;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #BB86FC;
+            color: #121212;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #FF79C6;
+        }
+
+        footer {
+            background-color: #1E1E1E;
+            text-align: center;
+            padding: 20px;
+            color: #888;
+        }
+
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .service {
+            background-color: #1E1E1E;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            color: #FFFFFF;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .service h3 {
+            color: #BB86FC;
+            margin-bottom: 10px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 50px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .testimonials {
+            background-color: #1E1E1E;
+            padding: 50px;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .testimonial {
+            margin-bottom: 20px;
+        }
+
+        .testimonial p {
+            font-style: italic;
+        }
+
+        .testimonial h5 {
+            margin-top: 10px;
+            color: #BB86FC;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Kaliteli Hizmet ve Tarzlar</h1>
+        <p>Sizlere modern saç kesimi ve bakım hizmetleri sunuyoruz</p>
+    </header>
+
+    <!-- Carousel -->
+    <div id="barberCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/Foto/zaza.jpeg" class="d-block w-100" alt="Barber Shop">
+            </div>
+            <div class="carousel-item">
+                <img src="/Foto/onur.jpeg" class="d-block w-100" alt="Quality Haircuts">
+            </div>
+            <div class="carousel-item">
+                <img src="/Foto/yalkin.jpeg" class="d-block w-100" alt="Experience the Best">
+            </div>
+             <div class="carousel-item">
+                <img src="/Foto/iso.jpeg" class="d-block w-100" alt="Quality Haircuts">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#barberCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#barberCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Service Section -->
+    <section class="section">
+        <h2>Hizmetlerimiz</h2>
+        <p>Profesyonel ekibimizle kaliteli ve modern saç kesimleri sunuyoruz. Her müşteriye özel hizmet anlayışımızla en iyi deneyimi yaşayın.</p>
+        <div class="services">
+            <div class="service">
+                <h3>Saç Kesimi</h3>
+                <p>Modern ve klasik saç kesimleriyle tarzınızı yaratın.</p>
+            </div>
+            <div class="service">
+                <h3>Sakal Tıraşı</h3>
+                <p>Profesyonel sakal tıraşı ve şekillendirme hizmeti.</p>
+            </div>
+            <div class="service">
+                <h3>Bakım Hizmetleri</h3>
+                <p>Saç ve sakal bakımı ile kendinizi yenileyin.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <img src="/Foto/stil1.jpg" alt="Gallery Image 1">
+        <img src="/Foto/stil2.jpg" alt="Gallery Image 2">
+        <img src="/Foto/stil3.jpg" alt="Gallery Image 3">
+        <img src="/Foto/stil4.jpg" alt="Gallery Image 4">
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>Müşteri Yorumları</h2>
+        <div class="testimonial">
+            <p>"Hizmetten çok memnun kaldım, saç kesimi tam istediğim gibi oldu!"</p>
+            <h5>- Ahmet Yılmaz</h5>
+        </div>
+        <div class="testimonial">
+            <p>"Sıcak bir ortam ve profesyonel ekip, herkese tavsiye ederim!"</p>
+            <h5>- Fatih Furkan Yıldırım</h5>
+        </div>
+        <div class="testimonial">
+            <p>"Bakım hizmetleri harika, düzenli olarak geliyorum."</p>
+            <h5>- Mehmet Çetin</h5>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Kaliteli Hizmet ve Tarzlar. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

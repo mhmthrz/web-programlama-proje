@@ -1,0 +1,18 @@
+﻿@model webodev.Models.Calisan
+
+<h2>Çalışanı Sil</h2>
+
+<div class="alert alert-danger">
+    <h4>Bu çalışanı silmek istediğinizden emin misiniz?</h4>
+    <p>
+        <strong>Ad:</strong> @Model.Ad <br />
+        <strong>Çalışma Başlangıç Saati:</strong> @Model.CalismaBaslangicSaati <br />
+        <strong>Çalışma Bitiş Saati:</strong> @Model.CalismaBitisSaati
+    </p>
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

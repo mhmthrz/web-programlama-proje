@@ -1,0 +1,20 @@
+﻿@model webodev.Models.Salon
+
+<h2>Salon Sil</h2>
+
+<div class="alert alert-danger">
+    <h4>Bu salonu silmek istediğinizden emin misiniz?</h4>
+    <p>
+        <strong>Ad:</strong> @Model.Ad <br />
+        <strong>Telefon:</strong> @Model.Telefon <br />
+        <strong>Adres:</strong> @Model.Adres <br />
+        <strong>Açılış Saati:</strong> @Model.AcilisSaati <br />
+        <strong>Kapanış Saati:</strong> @Model.KapanisSaati <br />
+    </p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

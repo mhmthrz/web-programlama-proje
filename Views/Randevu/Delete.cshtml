@@ -1,0 +1,18 @@
+﻿@model webodev.Models.Randevu
+
+<h2>Randevuyu Sil</h2>
+
+<div class="alert alert-danger">
+    <h4>Bu randevuyu silmek istediğinizden emin misiniz?</h4>
+    <p>
+        <strong>Tarih:</strong> @Model.Tarih.ToString("yyyy-MM-dd HH:mm") <br />
+        <strong>Çalışan:</strong> @(Model.Calisan?.Ad ?? "Belirtilmemiş") <br />
+        <strong>İşlem:</strong> @(Model.Islem?.Ad ?? "Belirtilmemiş")
+    </p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

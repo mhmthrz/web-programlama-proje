@@ -1,0 +1,44 @@
+﻿@model IEnumerable<webodev.Models.Salon>
+
+<h2>Salon Yönetimi</h2>
+<a asp-action="Create" class="btn btn-primary mb-3">Yeni Salon Ekle</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Telefon</th>
+            <th>Adres</th>
+            <th>Çalışanlar</th>
+            <th>Açılış Saati</th>
+            <th>Kapanış Saati</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var salon in Model)
+        {
+            <tr>
+                <td>@salon.Ad</td>
+                <td>@salon.Telefon</td>
+                <td>@salon.Adres</td>
+                <td>
+                    @if (salon.Calisanlar != null && salon.Calisanlar.Any())
+                    {
+                        @string.Join(", ", salon.Calisanlar.Select(c => c.Ad))
+                    }
+                    else
+                    {
+                        <span>Çalışan yok</span>
+                    }
+                </td>
+                <td>@salon.AcilisSaati</td>
+                <td>@salon.KapanisSaati</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@salon.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@salon.Id" class="btn btn-danger btn-sm">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

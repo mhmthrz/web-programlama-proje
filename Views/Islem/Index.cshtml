@@ -1,0 +1,159 @@
+﻿<h2>İşlem Yönetimi</h2>
+<a class="btn btn-primary mb-3" id="addIslemBtn">Yeni İşlem Ekle</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Ücret</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody id="islemTableBody">
+        <!-- API ile doldurulacak -->
+    </tbody>
+</table>
+
+<!-- Yeni İşlem Modal -->
+<div id="islemModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Yeni İşlem Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="islemForm">
+                    <div class="form-group">
+                        <label for="Ad">Ad</label>
+                        <input id="Ad" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Ucret">Ücret</label>
+                        <input id="Ucret" class="form-control" type="number" required />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="saveIslem" class="btn btn-primary">Kaydet</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const islemTableBody = document.getElementById("islemTableBody");
+        const addIslemBtn = document.getElementById("addIslemBtn");
+        const islemModal = new bootstrap.Modal(document.getElementById("islemModal"));
+        const saveIslemBtn = document.getElementById("saveIslem");
+        const modalTitle = document.getElementById("modalTitle");
+
+        let isEditing = false;
+        let currentIslemId = null;
+
+        // İşlemleri Yükle
+        function loadIslemler() {
+            islemTableBody.innerHTML = "";
+            fetch("/api/islem")
+                .then((response) => {
+                    if (!response.ok) throw new Error("İşlemler alınamadı.");
+                    return response.json();
+                })
+                .then((data) => {
+                    data.forEach((islem) => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${islem.ad}</td>
+                            <td>${islem.ucret}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="editIslem(${islem.islemId})">Düzenle</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteIslem(${islem.islemId})">Sil</button>
+                            </td>
+                        `;
+                        islemTableBody.appendChild(row);
+                    });
+                })
+                .catch((err) => alert(err.message));
+        }
+
+        loadIslemler();
+
+        // Yeni İşlem Ekleme
+        addIslemBtn.addEventListener("click", () => {
+            isEditing = false;
+            currentIslemId = null;
+            modalTitle.textContent = "Yeni İşlem Ekle";
+            document.getElementById("Ad").value = "";
+            document.getElementById("Ucret").value = "";
+            islemModal.show();
+        });
+
+        saveIslemBtn.addEventListener("click", function () {
+            const islem = {
+                ad: document.getElementById("Ad").value,
+                ucret: parseInt(document.getElementById("Ucret").value),
+            };
+
+            const method = isEditing ? "PUT" : "POST";
+            const url = isEditing
+                ? `/api/islem/${currentIslemId}`
+                : "/api/islem";
+
+            fetch(url, {
+                method: method,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(islem),
+            })
+                .then((response) => {
+                    if (!response.ok) throw new Error("İşlem kaydedilemedi.");
+                    return response.json();
+                })
+                .then(() => {
+                    alert(isEditing ? "İşlem başarıyla güncellendi!" : "İşlem başarıyla eklendi!");
+                    islemModal.hide();
+                    loadIslemler();
+                })
+                .catch((err) => alert(err.message));
+        });
+
+        // İşlem Silme
+        window.deleteIslem = function (id) {
+            if (!confirm("Bu işlemi silmek istediğinizden emin misiniz?")) return;
+
+            fetch(`/api/islem/${id}`, {
+                method: "DELETE",
+            })
+                .then((response) => {
+                    if (!response.ok) throw new Error("İşlem silinemedi.");
+                    return response.json();
+                })
+                .then(() => {
+                    alert("İşlem başarıyla silindi!");
+                    loadIslemler();
+                })
+                .catch((err) => alert(err.message));
+        };
+
+        // İşlem Düzenleme
+        window.editIslem = function (id) {
+            fetch(`/api/islem/${id}`)
+                .then((response) => {
+                    if (!response.ok) throw new Error("İşlem bilgisi alınamadı.");
+                    return response.json();
+                })
+                .then((data) => {
+                    isEditing = true;
+                    currentIslemId = id;
+                    modalTitle.textContent = "İşlem Düzenle";
+                    document.getElementById("Ad").value = data.ad;
+                    document.getElementById("Ucret").value = data.ucret;
+                    islemModal.show();
+                })
+                .catch((err) => alert(err.message));
+        };
+    });
+</script>
+}
